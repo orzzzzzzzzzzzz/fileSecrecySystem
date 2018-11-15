@@ -130,7 +130,6 @@
     <property name="title">
      <string>文件</string>
     </property>
-    <addaction name="actionnew_file"/>
     <addaction name="actionopen"/>
     <addaction name="actionsave"/>
     <addaction name="actionsave_as"/>

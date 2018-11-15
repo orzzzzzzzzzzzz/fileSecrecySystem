@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "ui_dialog.h"
 #include "rc4.h"
 #include <QFile>
 #include <QFileDialog>
@@ -46,11 +45,8 @@ void MainWindow::on_actionopen_triggered()
         }
         QTextStream in(&file);
         QApplication::setOverrideCursor(Qt::WaitCursor);
-//        dialog = new Dialog(this);
-//        dialog->setModal(false);
         this->ui->textEdit->setPlainText(in.readAll());
         QApplication::restoreOverrideCursor();
-//        dialog->show();
     }else{
         qDebug()<<"取消";
     }
