@@ -2,7 +2,6 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "dialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -23,9 +22,10 @@ private slots:
 
     void on_actionopen_triggered();
 
+    void on_actionsave_as_2_triggered();
+
 private:
     Ui::MainWindow *ui;
-    Dialog *dialog;
 };
 
 #endif // MAINWINDOW_H

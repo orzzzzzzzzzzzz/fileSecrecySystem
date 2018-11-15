@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "ui_dialog.h"
 #include "rc4.h"
 #include <QFile>
 #include <QFileDialog>
@@ -37,7 +36,7 @@ void MainWindow::on_radioButton_2_clicked(bool checked)
 void MainWindow::on_actionopen_triggered()
 {
     QString fileName;
-    fileName = QFileDialog::getOpenFileName(this,tr("文件"),"",tr("text(*.txt)"));
+    fileName = QFileDialog::getOpenFileName(this,tr("open file"),"",tr("text(*.txt)"));
     if(!fileName.isNull()){
         QFile file(fileName);
         if(!file.open(QFile::ReadOnly|QFile::Text)){
@@ -46,12 +45,18 @@ void MainWindow::on_actionopen_triggered()
         }
         QTextStream in(&file);
         QApplication::setOverrideCursor(Qt::WaitCursor);
-//        dialog = new Dialog(this);
-//        dialog->setModal(false);
         this->ui->textEdit->setPlainText(in.readAll());
         QApplication::restoreOverrideCursor();
-//        dialog->show();
     }else{
+        qDebug()<<"取消";
+    }
+}
+
+void MainWindow::on_actionsave_as_2_triggered()
+{
+    QString fileName;
+    fileName = QFileDialog::getSaveFileName(this,tr("save file"),".txt",tr("text(*.txt)"));
+    if(fileName.isNull()){
         qDebug()<<"取消";
     }
 }
