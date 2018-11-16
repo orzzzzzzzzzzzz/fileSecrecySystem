@@ -34,35 +34,38 @@
              <number>30</number>
             </property>
             <item alignment="Qt::AlignLeft">
-             <widget class="QRadioButton" name="radioButton_2">
+             <widget class="QRadioButton" name="RC4">
               <property name="text">
                <string>RC4</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
             <item alignment="Qt::AlignLeft">
-             <widget class="QRadioButton" name="radioButton_4">
+             <widget class="QRadioButton" name="RSA">
               <property name="text">
                <string>RSA</string>
               </property>
              </widget>
             </item>
             <item alignment="Qt::AlignLeft">
-             <widget class="QRadioButton" name="radioButton_5">
+             <widget class="QRadioButton" name="Elgamal">
               <property name="text">
                <string>Elgamal</string>
               </property>
              </widget>
             </item>
             <item alignment="Qt::AlignLeft">
-             <widget class="QRadioButton" name="radioButton_3">
+             <widget class="QRadioButton" name="DES">
               <property name="text">
                <string>DES</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QRadioButton" name="radioButton">
+             <widget class="QRadioButton" name="Casear">
               <property name="text">
                <string>Casear</string>
               </property>
@@ -129,7 +132,7 @@
      <x>0</x>
      <y>0</y>
      <width>730</width>
-     <height>22</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">

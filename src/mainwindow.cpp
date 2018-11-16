@@ -1,11 +1,14 @@
 #include "./headers/mainwindow.h"
 #include "ui_mainwindow.h"
 #include "./headers/rc4.h"
+#include "rc4.h"
+#include "rsa.h"
 #include <QFile>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QTextStream>
 #include <QDebug>
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -19,17 +22,21 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-
 void MainWindow::on_pushButton_2_clicked()
 {
-    ;
-}
+    QString qstr=ui->textEdit->toPlainText();
+        if(ui->RC4->isChecked()){
+            string key="justfortest123";
+            RC4 rc4;
+            string cstr=string((const char*)qstr.toLocal8Bit());
+            string data=string(rc4.doRC4(cstr,key));
+            qDebug()<<QString::fromLocal8Bit(data.c_str());
+            ui->textEdit->clear();
+            ui->textEdit->setPlainText(QString::fromLocal8Bit(data.c_str()));
 
-void MainWindow::on_radioButton_2_clicked(bool checked)
-{
-    if(checked){
-        ;
-    }
+        }
+
+
 }
 
 void MainWindow::on_actionopen_triggered()
@@ -67,4 +74,17 @@ void MainWindow::on_actionsave_as_2_triggered()
     }else{
         qDebug()<<"取消";
     }
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    QString qstr=ui->textEdit->toPlainText();
+        if(ui->RC4->isChecked()){
+            RC4 rc4;
+            string key="justfortest123";
+            string cstr=string((const char*)qstr.toLocal8Bit());
+            string data=rc4.doRC4(cstr,key);
+            ui->textEdit->clear();
+            ui->textEdit->setPlainText(QString::fromLocal8Bit(data.c_str()));
+        }
 }
