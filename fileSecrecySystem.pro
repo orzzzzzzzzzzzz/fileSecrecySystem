@@ -25,16 +25,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-        main.cpp \
-        mainwindow.cpp \
-    rc4.cpp
+    src/main.cpp \
+    src/mainwindow.cpp \
+    src/qblowfish.cpp \
+    src/rc4.cpp
 
 HEADERS += \
-        mainwindow.h \
-    rc4.h
+    headers/mainwindow.h \
+    headers/rc4.h \
+    headers/blowfish_p.h \
+    headers/blowfish.h
 
 FORMS += \
-        mainwindow.ui
+    ui/mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

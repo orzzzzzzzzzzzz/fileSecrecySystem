@@ -1,4 +1,4 @@
-#include<rc4.h>
+#include<./headers/rc4.h>
 #include <assert.h>
 #include<time.h>
 #include<iostream>
