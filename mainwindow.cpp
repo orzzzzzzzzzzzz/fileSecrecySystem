@@ -6,6 +6,7 @@
 #include <QMessageBox>
 #include <QTextStream>
 #include <QDebug>
+#include <iostream>
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -55,8 +56,17 @@ void MainWindow::on_actionopen_triggered()
 void MainWindow::on_actionsave_as_2_triggered()
 {
     QString fileName;
+
     fileName = QFileDialog::getSaveFileName(this,tr("save file"),".txt",tr("text(*.txt)"));
-    if(fileName.isNull()){
+    if(!fileName.isNull()){
+        QFile file(fileName);
+        if(!file.open(QFile::ReadWrite|QFile::Text)){
+            QMessageBox::warning(this,"file write","can't open",QMessageBox::Yes);
+            return;
+        }
+        QTextStream in(&file);
+        in<<this->ui->textEdit->toPlainText();
+    }else{
         qDebug()<<"取消";
     }
 }
