@@ -28,13 +28,20 @@ SOURCES += \
     src/main.cpp \
     src/mainwindow.cpp \
     src/qblowfish.cpp \
-    src/rc4.cpp
+    src/rc4.cpp \
+    src/rsa.cpp \
+    src/playfair.cpp \
+    src/casear.cpp
+
+
 
 HEADERS += \
     headers/mainwindow.h \
     headers/rc4.h \
     headers/blowfish_p.h \
-    headers/blowfish.h
+    headers/blowfish.h \
+    headers/rsa.h
+
 
 FORMS += \
     ui/mainwindow.ui

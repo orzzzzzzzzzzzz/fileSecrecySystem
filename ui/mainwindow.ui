@@ -2,12 +2,15 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>730</width>
-    <height>647</height>
+    <width>697</width>
+    <height>534</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,30 +19,114 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout" rowstretch="0">
     <item row="0" column="0">
-     <layout class="QVBoxLayout" name="verticalLayout_2" stretch="4,1">
+     <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,9,1">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QComboBox" name="comboBox">
+          <property name="currentText">
+           <string>CBC</string>
+          </property>
+          <item>
+           <property name="text">
+            <string>CBC</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>DSA</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="comboBox_2">
+          <item>
+           <property name="text">
+            <string>base64</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="lineEdit">
+          <property name="text">
+           <string>justfortest123</string>
+          </property>
+          <property name="placeholderText">
+           <string>密钥/公钥</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="lineEdit_2">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="placeholderText">
+           <string>私钥</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,1">
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_6">
+         <layout class="QVBoxLayout" name="verticalLayout_6" stretch="11">
           <item>
-           <widget class="QTextEdit" name="textEdit"/>
+           <widget class="QPlainTextEdit" name="plainTextEdit"/>
           </item>
          </layout>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout" stretch="2,1">
+         <layout class="QVBoxLayout" name="verticalLayout" stretch="5,1">
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout_3" stretch="1,1,1,1,0">
+           <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,0,0,1,0,1">
             <property name="leftMargin">
              <number>30</number>
             </property>
+            <item>
+             <widget class="QRadioButton" name="Casear">
+              <property name="text">
+               <string>Casear</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="Playfair">
+              <property name="text">
+               <string>Playfair</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="Permutation">
+              <property name="text">
+               <string>Permutation</string>
+              </property>
+             </widget>
+            </item>
             <item alignment="Qt::AlignLeft">
              <widget class="QRadioButton" name="RC4">
               <property name="text">
                <string>RC4</string>
               </property>
               <property name="checked">
-               <bool>true</bool>
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="Blowfish">
+              <property name="text">
+               <string>Blowfish</string>
               </property>
              </widget>
             </item>
@@ -47,27 +134,6 @@
              <widget class="QRadioButton" name="RSA">
               <property name="text">
                <string>RSA</string>
-              </property>
-             </widget>
-            </item>
-            <item alignment="Qt::AlignLeft">
-             <widget class="QRadioButton" name="Elgamal">
-              <property name="text">
-               <string>Elgamal</string>
-              </property>
-             </widget>
-            </item>
-            <item alignment="Qt::AlignLeft">
-             <widget class="QRadioButton" name="DES">
-              <property name="text">
-               <string>DES</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QRadioButton" name="Casear">
-              <property name="text">
-               <string>Casear</string>
               </property>
              </widget>
             </item>
@@ -79,7 +145,7 @@
              <number>20</number>
             </property>
             <item alignment="Qt::AlignLeft">
-             <widget class="QPushButton" name="pushButton_2">
+             <widget class="QPushButton" name="encrypt">
               <property name="cursor">
                <cursorShape>PointingHandCursor</cursorShape>
               </property>
@@ -104,7 +170,7 @@
              </widget>
             </item>
             <item alignment="Qt::AlignLeft">
-             <widget class="QPushButton" name="pushButton">
+             <widget class="QPushButton" name="decrypt">
               <property name="cursor">
                <cursorShape>PointingHandCursor</cursorShape>
               </property>
@@ -131,7 +197,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>730</width>
+     <width>697</width>
      <height>26</height>
     </rect>
    </property>
