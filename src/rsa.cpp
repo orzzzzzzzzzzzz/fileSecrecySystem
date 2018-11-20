@@ -1,34 +1,5 @@
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
-#include <cstring>
-using namespace std;
+#include "./headers/rsa.h"
 
-typedef struct  RSA_PARAM_Tag
-{
-    unsigned __int64   p, q;   //两个素数，不参与加密解密运算
-    unsigned __int64    f;      //f=(p-1)*(q-1)，不参与加密解密运算
-    unsigned __int64    n, e;   //公匙，n=p*q，gcd(e,f)=1
-    unsigned __int64    d;      //私匙，e*d=1 (mod f)，gcd(n,d)=1
-    unsigned __int64    s;      //块长，满足2^s<=n的最大的s，即log2(n)
-} RSA_PARAM;
-//小素数表
-const static long       g_PrimeTable[]=
-{
-    3,5,7,11,13,17,19,23,29,31,37,41,43,
-    47,53,59,61,67,71,73,79,83,89,97
-};
-const static long       g_PrimeCount=sizeof(g_PrimeTable) / sizeof(long);
-const unsigned multiplier=12747293821;
-const unsigned __int64  adder=1343545677842234541;//随机数类
-class RandNumber
-{
-private:
-    unsigned __int64    randSeed;
-public:
-    RandNumber(unsigned __int64 s=0);
-    unsigned __int64    Random(unsigned __int64 n);
-};
 RandNumber::RandNumber(unsigned __int64 s)
 {
     if(!s)
@@ -40,29 +11,11 @@ RandNumber::RandNumber(unsigned __int64 s)
         randSeed=s;
     }
 }
+
 unsigned __int64 RandNumber::Random(unsigned __int64 n)
 {
     randSeed=multiplier * randSeed + adder;
     return randSeed % n;
-}static RandNumber   g_Rnd;
-
-class RSA{
-public:
-    void TestRSA(char* pSrc);
-    unsigned char* getdecode(){return decode;}
-    unsigned __int64* getencode(){return encode;}
-    unsigned __int64 getpublickey(){return x;}
-    unsigned __int64 getprivatekey(){return z;}
-private:
-    unsigned __int64* encode;
-    unsigned char* decode;
-    unsigned __int64 x,y,z;
-};
-
-//模乘运算，返回值 x=a*b mod n
-inline unsigned MulMod(unsigned __int64 a, unsigned __int64 b, unsigned __int64 n)
-{
-    return a * b % n;
 }
 
 //模幂运算，返回值 x=base^pow mod n
@@ -79,10 +32,8 @@ unsigned __int64 PowMod(unsigned __int64 &base, unsigned __int64 &pow, unsigned 
         c=MulMod(a, c, n);
     }    return c;
 }
-/*
-Rabin-Miller素数测试，通过测试返回1，否则返回0。
-n是待测素数。
-*/
+
+//Rabin-Miller素数测试，通过测试返回1，否则返回0。   n是待测素数。
 long RabinMillerKnl(unsigned __int64 &n)
 {
     unsigned __int64    b, m, j, v, i;
@@ -114,10 +65,9 @@ long RabinMillerKnl(unsigned __int64 &n)
         ++i;        //循环到5
     }    return 1;
 }
-/*
-Rabin-Miller素数测试，循环调用核心loop次
-全部通过返回1，否则返回0
-*/
+
+
+//Rabin-Miller素数测试，循环调用核心loop次.全部通过返回1，否则返回0
 long RabinMiller(unsigned __int64 &n, long loop)
 {
     //用小素数筛选一次，提高效率
@@ -135,9 +85,9 @@ long RabinMiller(unsigned __int64 &n, long loop)
             return 0;
         }
     }    return 1;
-}/*
-随机生成一个bits位(二进制位)的素数，最多32位
-*/
+}
+
+//随机生成一个bits位(二进制位)的素数，最多32位
 unsigned __int64 RandomPrime(char bits)
 {
     unsigned __int64    base;
@@ -148,9 +98,9 @@ unsigned __int64 RandomPrime(char bits)
         base|=1;    //保证最低位是1，即保证是奇数
     } while(!RabinMiller(base, 30));    //进行拉宾－米勒测试30次
     return base;    //全部通过认为是素数
-}/*
-欧几里得法求最大公约数
-*/
+}
+
+//欧几里得法求最大公约数
 unsigned __int64 EuclidGcd(unsigned __int64 &p, unsigned __int64 &q)
 {
     unsigned __int64    a=p > q ? p : q;
@@ -170,9 +120,9 @@ unsigned __int64 EuclidGcd(unsigned __int64 &p, unsigned __int64 &q)
             b=t;
         }        return a;
     }
-}/*
-Stein法求最大公约数
-*/
+}
+
+//Stein法求最大公约数
 unsigned __int64 SteinGcd(unsigned __int64 &p, unsigned __int64 &q)
 {
     unsigned __int64    a=p > q ? p : q;
@@ -208,10 +158,9 @@ unsigned __int64 SteinGcd(unsigned __int64 &p, unsigned __int64 &q)
         } while(b);
         return r * a;
     }
-}/*
-已知a、b，求x，满足a*x =1 (mod b)
-相当于求解a*x-b*y=1的最小整数解
-*/
+}
+
+//已知a、b，求x，满足a*x =1 (mod b),相当于求解a*x-b*y=1的最小整数解
 unsigned __int64 Euclid(unsigned __int64 &a, unsigned __int64 &b)
 {
     unsigned __int64    m, e, i, j, x, y;
@@ -240,9 +189,9 @@ unsigned __int64 Euclid(unsigned __int64 &a, unsigned __int64 &b)
     if(xx == 0)
         x=b - x;
     return x;
-}/*
-随机产生一个RSA加密参数
-*/
+}
+
+//随机产生一个RSA加密参数
 RSA_PARAM RsaGetParam(void)
 {
     RSA_PARAM   Rsa={0};
@@ -265,9 +214,9 @@ RSA_PARAM RsaGetParam(void)
         t>>=1;
     }
     return Rsa;
-}/*
-拉宾－米勒测试
-*/
+}
+
+//拉宾－米勒测试
 void TestRM(void)
 {
     unsigned long   k=0;
@@ -281,12 +230,7 @@ void TestRM(void)
         }
     }    cout << "Total: " << k << endl;
 }
-
-
-
-/*
- RSA加密解密
- */
+//RSA加密解密
 void RSA::TestRSA(char* pSrc)
 {
 
@@ -302,13 +246,16 @@ void RSA::TestRSA(char* pSrc)
     cout<<x<<endl;
     cout<<y<<endl;
     cout<<z<<endl;
+    unsigned __int64 t;
     q = (unsigned char*)pSrc;
     for (unsigned long i = 0; i < n; i++)
     {
-        unsigned long long xxx;
-        __int64 xxxx = q[i];
-        xxx = xxxx;
-        pEnc[i] = PowMod(xxx, r.e, r.n);
+        //unsigned long long xxx;
+        //__int64 xxxx = q[i];
+        //xxx = xxxx;
+        //pEnc[i] = PowMod(xxx, r.e, r.n);
+        t=(unsigned __int64)q[i];
+        pEnc[i]=PowMod(t,r.e,r.n);
         cout << hex << pEnc[i] << " ";
     }
     encode=pEnc;
@@ -320,5 +267,3 @@ void RSA::TestRSA(char* pSrc)
     decode=pDec;
     cout << (char *)pDec << endl;
 }
-
-

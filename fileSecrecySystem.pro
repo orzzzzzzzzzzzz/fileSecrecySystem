@@ -29,9 +29,9 @@ SOURCES += \
     src/mainwindow.cpp \
     src/qblowfish.cpp \
     src/rc4.cpp \
-    src/rsa.cpp \
     src/playfair.cpp \
-    src/casear.cpp
+    src/casear.cpp \
+    src/rsa.cpp
 
 
 

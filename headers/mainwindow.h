@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "./src/rsa.cpp"
+//#include "./src/rsa.cpp"
 namespace Ui {
 class MainWindow;
 }
@@ -23,8 +23,10 @@ private slots:
     void on_actionsave_as_2_triggered();
 
     void on_decrypt_clicked();
-    RSA rsa(char* pstr);
-    void playfair_en(char* pstr,std::string key);
+//    RSA rsa(char* pstr);
+//   void rsa(char*pstr);
+     void playfair_en(std::string pstr,std::string key);
+     void playfair_de(std::string pstr,std::string key);
 
 private:
     Ui::MainWindow *ui;
