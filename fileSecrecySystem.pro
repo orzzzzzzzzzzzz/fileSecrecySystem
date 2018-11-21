@@ -27,14 +27,23 @@ CONFIG += c++11
 SOURCES += \
     src/main.cpp \
     src/mainwindow.cpp \
-    src/qblowfish.cpp \
-    src/rc4.cpp
+    src/blowfish.cpp \
+    src/rc4.cpp \
+    src/playfair.cpp \
+    src/casear.cpp \
+#    src/rsa.cpp \
+    src/xorcipher.cpp
+
+
 
 HEADERS += \
     headers/mainwindow.h \
     headers/rc4.h \
-    headers/blowfish_p.h \
-    headers/blowfish.h
+    headers/blowfish.h \
+    headers/hexpi.h \
+#    headers/rsa.h \
+    headers/xorcipher.h
+
 
 FORMS += \
     ui/mainwindow.ui

@@ -111,6 +111,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="encryptBtn">
+        <property name="toolTipDuration">
+         <number>-2</number>
+        </property>
         <property name="text">
          <string>Encrypt</string>
         </property>

@@ -1,21 +1,34 @@
+#ifndef CHATRC4_RC4_H
+#define CHATRC4_RC4_H
+
 #include <iostream>
-using namespace::std;
+#define N 1024
 
-#ifndef _RC4_H
-#define _RC4_H
 
-class RC4
-{
-public:
-    void ksa(string key, int keylength);
-    string prga(string in, int len);
-    string doRC4(string in, string key);
 
+class RC4 {
 private:
-    int S[256];
-    char k[256];
+    std::string key;
+    unsigned char s[N];
+    unsigned int i,j;
+    void swap(unsigned int,unsigned int);
+    unsigned char GenerateNextKeyByte();
+    unsigned char xorByte(unsigned char, unsigned char);
+
+
+public:
+    RC4();
+    RC4(std::string);
+    void resetRC4(std::string newKey);
+    void resetKey(std::string);
+    void KSA();
+    unsigned char encrypt_decrypt(unsigned char);
+    std::string encrypt_decrypt(std::string);
+
+
+
+
 
 };
 
-#endif // _RC4_H
-
+#endif //CHATRC4_RC4_H
