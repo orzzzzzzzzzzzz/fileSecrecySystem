@@ -237,7 +237,7 @@ void RSA::TestRSA(char* pSrc)
     RSA_PARAM  r;
     const unsigned long n = sizeof(pSrc);
     unsigned char       *q;
-//    unsigned char  pDec[n];
+    unsigned char  pDec[n];
     unsigned __int64    pEnc[n];
 
     r = RsaGetParam();
@@ -257,13 +257,13 @@ void RSA::TestRSA(char* pSrc)
         cout << hex << pEnc[i] << " ";
     }
     encode=pEnc;
- /*   for (unsigned long i = 0; i < n; i++)
+    for (unsigned long i = 0; i < n; i++)
     {
         pDec[i] = PowMod(pEnc[i], r.d, r.n);
         cout << hex << (unsigned long)pDec[i] << " ";
     }
    decode=pDec;
-   cout << (char *)pDec << endl;*/
+   cout << (char *)pDec << endl;
 }
 
 /*void RSA::decipher(char*pSrc,unsigned long long d,unsigned long long n){

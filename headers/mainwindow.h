@@ -31,6 +31,10 @@ private slots:
 
     void on_decryptBtn_clicked();
 
+    QString textCleaner(const QString TextToClean);
+
+    QString removeAccents(const QString s);
+
 private:
     Ui::MainWindow *ui;
 //    QBlowfish blowfish;
