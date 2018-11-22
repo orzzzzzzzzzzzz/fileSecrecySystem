@@ -6,15 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>442</width>
-    <height>360</height>
+    <width>517</width>
+    <height>562</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>fileSecrecySystem</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../icon.qrc">
+   <iconset>
     <normaloff>:/images/dialog-password.png</normaloff>:/images/dialog-password.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
@@ -88,6 +88,11 @@
         </item>
         <item>
          <property name="text">
+          <string>AES</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
           <string>XOR</string>
          </property>
         </item>
@@ -115,7 +120,7 @@
          <string>Encrypt</string>
         </property>
         <property name="icon">
-         <iconset resource="../icon.qrc">
+         <iconset>
           <normaloff>:/images/object-locked.png</normaloff>:/images/object-locked.png</iconset>
         </property>
        </widget>
@@ -126,8 +131,26 @@
          <string>Decrpyt</string>
         </property>
         <property name="icon">
-         <iconset resource="../icon.qrc">
+         <iconset>
           <normaloff>:/images/object-unlocked.png</normaloff>:/images/object-unlocked.png</iconset>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,3">
+      <item>
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>Execution Time:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="executionTime">
+        <property name="text">
+         <string/>
         </property>
        </widget>
       </item>
@@ -140,7 +163,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>442</width>
+     <width>517</width>
      <height>22</height>
     </rect>
    </property>
@@ -166,8 +189,6 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="../icon.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

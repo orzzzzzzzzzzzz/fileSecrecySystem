@@ -31,8 +31,10 @@ SOURCES += \
     src/rc4.cpp \
     src/playfair.cpp \
     src/casear.cpp \
-#    src/rsa.cpp \
-    src/xor.cpp
+    src/xor.cpp \
+    src/aes.cpp \
+    src/aes_lookup_tables.cpp
+#    src/rsa.cpp
 #    src/des.cpp
 
 
@@ -42,8 +44,9 @@ HEADERS += \
     headers/rc4.h \
     headers/blowfish.h \
     headers/hexpi.h \
-#    headers/rsa.h \
-    headers/xor.h
+    headers/xor.h \
+    headers/aes.h
+#    headers/rsa.h
 #    headers/des.h
 
 
