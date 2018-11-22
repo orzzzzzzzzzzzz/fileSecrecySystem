@@ -27,12 +27,13 @@ CONFIG += c++11
 SOURCES += \
     src/main.cpp \
     src/mainwindow.cpp \
-    src/blowfish.cpp \
+ #   src/blowfish.cpp \
     src/rc4.cpp \
     src/playfair.cpp \
     src/casear.cpp \
-#    src/rsa.cpp \
-    src/xor.cpp
+    src/rsa.cpp \
+    src/xor.cpp \
+    src/rsa.cpp
 #    src/des.cpp
 
 
@@ -40,10 +41,11 @@ SOURCES += \
 HEADERS += \
     headers/mainwindow.h \
     headers/rc4.h \
-    headers/blowfish.h \
+ #   headers/blowfish.h \
     headers/hexpi.h \
-#    headers/rsa.h \
-    headers/xor.h
+    headers/rsa.h \
+    headers/xor.h \
+    headers/rsa.h
 #    headers/des.h
 
 

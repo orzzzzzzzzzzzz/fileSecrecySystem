@@ -2,11 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "./headers/blowfish.h"
+//#include "./headers/blowfish.h"
 #include "./headers/xor.h"
 #include "./headers/hexpi.h"
 #include <qmath.h>
-//#include "./src/rsa.cpp"
+#include "./headers/rsa.h"
 namespace Ui {
 class MainWindow;
 }
@@ -23,20 +23,17 @@ private slots:
 
     void on_actionopen_triggered();
 
-//    RSA rsa(char* pstr);
-//   void rsa(char*pstr);
-     void playfair_en(std::string pstr,std::string key);
-     void playfair_de(std::string pstr,std::string key);
+    void rsa(char*pstr);
 
-     void on_actionsave_as_triggered();
+    void on_actionsave_as_triggered();
 
-     void on_encryptBtn_clicked();
+    void on_encryptBtn_clicked();
 
-     void on_decryptBtn_clicked();
+    void on_decryptBtn_clicked();
 
 private:
     Ui::MainWindow *ui;
-    QBlowfish blowfish;
+//    QBlowfish blowfish;
     XOR xorCipher;
 };
 
