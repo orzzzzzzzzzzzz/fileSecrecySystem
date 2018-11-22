@@ -119,7 +119,7 @@ void MainWindow::on_encryptBtn_clicked(){
         xorCipher.setKey(pstr);
         QByteArray XorEncyptedData = xorCipher.encrypt(QByteArray(qstr.toUtf8()));
         ui->outputEdit->clear();
-        ui->outputEdit->setPlainText(XorEncyptedData.toBase64());
+        ui->outputEdit->setPlainText(XorEncyptedData);
     }else if(ui->encryptionMethod->currentText() == "Playfair"){
         string plainmes=qstr.toStdString();
         playfair_en(plainmes,key);
@@ -156,7 +156,7 @@ void MainWindow::on_decryptBtn_clicked(){
         xorCipher.setKey(pstr);
         QByteArray XorEncyptedData = xorCipher.decrypt(QByteArray(qstr.toUtf8()));
         ui->outputEdit->clear();
-        ui->outputEdit->setPlainText(XorEncyptedData.toBase64());
+        ui->outputEdit->setPlainText(XorEncyptedData);
     }else if(ui->encryptionMethod->currentText() == "Casear"){
         int keylength=pstr.toInt();
         char* out=encrypt(oData,-keylength);

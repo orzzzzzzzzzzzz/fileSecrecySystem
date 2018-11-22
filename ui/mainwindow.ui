@@ -6,15 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>537</width>
-    <height>425</height>
+    <width>442</width>
+    <height>360</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>fileSecrecySystem</string>
   </property>
   <property name="windowIcon">
-   <iconset>
+   <iconset resource="../icon.qrc">
     <normaloff>:/images/dialog-password.png</normaloff>:/images/dialog-password.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
@@ -31,7 +31,7 @@
       <item>
        <widget class="QLineEdit" name="keyEdit">
         <property name="text">
-         <string>123</string>
+         <string>123456</string>
         </property>
        </widget>
       </item>
@@ -63,7 +63,7 @@
        <widget class="QComboBox" name="encryptionMethod">
         <item>
          <property name="text">
-          <string>Blowfish</string>
+          <string>RSA</string>
          </property>
         </item>
         <item>
@@ -83,7 +83,7 @@
         </item>
         <item>
          <property name="text">
-          <string>RSA</string>
+          <string>Blowfish</string>
          </property>
         </item>
         <item>
@@ -115,7 +115,7 @@
          <string>Encrypt</string>
         </property>
         <property name="icon">
-         <iconset>
+         <iconset resource="../icon.qrc">
           <normaloff>:/images/object-locked.png</normaloff>:/images/object-locked.png</iconset>
         </property>
        </widget>
@@ -126,7 +126,7 @@
          <string>Decrpyt</string>
         </property>
         <property name="icon">
-         <iconset>
+         <iconset resource="../icon.qrc">
           <normaloff>:/images/object-unlocked.png</normaloff>:/images/object-unlocked.png</iconset>
         </property>
        </widget>
@@ -140,7 +140,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>537</width>
+     <width>442</width>
      <height>22</height>
     </rect>
    </property>
@@ -166,6 +166,8 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="../icon.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -32,7 +32,8 @@ SOURCES += \
     src/playfair.cpp \
     src/casear.cpp \
 #    src/rsa.cpp \
-    src/xorcipher.cpp
+    src/xor.cpp
+#    src/des.cpp
 
 
 
@@ -42,7 +43,8 @@ HEADERS += \
     headers/blowfish.h \
     headers/hexpi.h \
 #    headers/rsa.h \
-    headers/xorcipher.h
+    headers/xor.h
+#    headers/des.h
 
 
 FORMS += \
@@ -52,3 +54,6 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    icon.qrc

@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include "./headers/blowfish.h"
-#include "./headers/xorcipher.h"
+#include "./headers/xor.h"
 #include "./headers/hexpi.h"
 #include <qmath.h>
 //#include "./src/rsa.cpp"
@@ -37,7 +37,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QBlowfish blowfish;
-    QXORCipher xorCipher;
+    XOR xorCipher;
 };
 
 #endif // MAINWINDOW_H
