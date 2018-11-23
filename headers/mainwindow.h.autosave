@@ -45,8 +45,8 @@ private:
     XOR xorCipher;
     QTime time;
     AES aes;
-//    RSA rsacipher;
-//    string rsa_out;
+    RSA rsacipher;
+    string rsa_out;
 };
 
 #endif // MAINWINDOW_H

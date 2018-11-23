@@ -13,13 +13,10 @@ void rc4::cipher(const std::string plaintext, const std::string key, const bool 
             std::string keystream_hex;
             std::string encoded_message;
             std::string plaintext_str;
-
             //stream and keystream generation
             stream_generation(key, stream_generated);
             keystream_generation(stream_generated, keystream);
-
             //int[] to std::string for the keystream
-
             for(int i=0;i<255;i++)
             {
                 keystream_str+=keystream[i];
