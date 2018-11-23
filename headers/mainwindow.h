@@ -8,7 +8,7 @@
 #include "./headers/xor.h"
 #include "./headers/hexpi.h"
 #include "./headers/aes.h"
-//#include "./headers/rsa.h"
+#include "./headers/rsa.h"
 namespace Ui {
 class MainWindow;
 }
@@ -24,8 +24,6 @@ public:
 private slots:
 
     void on_actionopen_triggered();
-
-//    void rsa(char*pstr);
 
     void on_actionsave_as_triggered();
 
@@ -47,6 +45,8 @@ private:
     XOR xorCipher;
     QTime time;
     AES aes;
+    RSA rsacipher;
+    string rsa_out;
 };
 
 #endif // MAINWINDOW_H

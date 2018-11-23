@@ -7,6 +7,7 @@
 #include <QTextStream>
 #include <QDebug>
 #include <string>
+#include<sstream>
 #include <iostream>
 #include "./src/playfair.cpp"
 #include "./src/casear.cpp"
@@ -42,6 +43,7 @@ void MainWindow::on_actionopen_triggered()
     }
 }
 
+
 void MainWindow::on_actionsave_as_triggered()
 {
     QString fileName;
@@ -59,11 +61,6 @@ void MainWindow::on_actionsave_as_triggered()
         qDebug()<<"取消";
     }
 }
-
-//void MainWindow::rsa(char* pstr){
-//          RSA rsa;
-//          rsa.TestRSA(pstr);
-//}
 
 void MainWindow::on_encryptBtn_clicked(){
     time.start();
@@ -96,7 +93,18 @@ void MainWindow::on_encryptBtn_clicked(){
             ui->outputEdit->setPlainText(data.toHex());
             ui->statusBar->showMessage("Data encrypted!");
         }else if(ui->encryptionMethod->currentText() == "RSA"){
-    //        rsa(oData);
+            ui->outputEdit->clear();
+            rsa_out="";
+            for(int i=0;i<qstr.size();i=i+8){
+               QString qs=qstr.mid(i,i+8);
+               char* dat;
+               QByteArray datt=qs.toLatin1();
+               dat=datt.data();
+               rsacipher.TestRSA(dat);
+               string output=rsacipher.getcipher();
+               rsa_out.append(rsacipher.getdecipher());
+               ui->outputEdit->appendPlainText(QString::fromStdString(output));
+            }
         }else if(ui->encryptionMethod->currentText() == "Blowfish"){
             blowfish.calcSubKey(pstr);
             QByteArray BfEncyptedData = blowfish.encrypt(QByteArray(qstr.toUtf8()));
@@ -210,6 +218,11 @@ void MainWindow::on_decryptBtn_clicked(){
             ui->outputEdit->clear();
             ui->outputEdit->setPlainText(QString::fromUtf8(AESDecrypt.data(),AESDecrypt.size()));
         }
+    }else if(ui->encryptionMethod->currentText() == "RSA"){
+        ui->outputEdit->clear();
+        QByteArray dae=QByteArray::fromStdString(rsa_out);
+        char* out=dae.data();
+        ui->outputEdit->setPlainText(dae);
     }
     ui->statusBar->showMessage("Data decrypted!");
     speedTest();
