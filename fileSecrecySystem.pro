@@ -31,8 +31,12 @@ SOURCES += \
     src/rc4.cpp \
     src/playfair.cpp \
     src/casear.cpp \
-#    src/rsa.cpp \
-    src/xorcipher.cpp
+    src/xor.cpp \
+    src/aes.cpp \
+    src/aes_lookup_tables.cpp \
+    src/common.cpp
+#    src/rsa.cpp
+#    src/des.cpp
 
 
 
@@ -41,8 +45,10 @@ HEADERS += \
     headers/rc4.h \
     headers/blowfish.h \
     headers/hexpi.h \
-#    headers/rsa.h \
-    headers/xorcipher.h
+    headers/xor.h \
+    headers/aes.h
+#    headers/rsa.h
+#    headers/des.h
 
 
 FORMS += \
@@ -52,3 +58,6 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    icon.qrc

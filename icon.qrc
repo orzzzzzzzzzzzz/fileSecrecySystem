@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/object-locked.png</file>
+        <file>images/object-unlocked.png</file>
+        <file>images/dialog-password.png</file>
+    </qresource>
+</RCC>

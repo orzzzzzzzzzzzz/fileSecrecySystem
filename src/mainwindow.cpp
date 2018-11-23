@@ -6,13 +6,10 @@
 #include <QMessageBox>
 #include <QTextStream>
 #include <QDebug>
-//#include "./headers/rsa.h"
 #include <string>
 #include <iostream>
 #include "./src/playfair.cpp"
 #include "./src/casear.cpp"
-
-using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -63,107 +60,158 @@ void MainWindow::on_actionsave_as_triggered()
     }
 }
 
-//RSA MainWindow::rsa(char* pstr){
-//    RSA rsa;
-//    rsa.TestRSA(pstr);
-//    return rsa;
-//}
-
 //void MainWindow::rsa(char* pstr){
 //          RSA rsa;
 //          rsa.TestRSA(pstr);
 //}
 
-void MainWindow::playfair_en(string pstr,string key){
-        string output=encode(pstr,key);
-        ui->outputEdit->clear();
-        ui->outputEdit->setPlainText(QString::fromStdString(output));
-}
-void MainWindow::playfair_de(string pstr,string key){
-    string output=decode(pstr,key);
-    ui->outputEdit->clear();
-    ui->outputEdit->setPlainText(QString::fromStdString(output));
-}
-
 void MainWindow::on_encryptBtn_clicked(){
+    time.start();
     QString qstr=ui->inputEdit->toPlainText();
     QString pstr=ui->keyEdit->text();
-    string key=pstr.toStdString();
-    char * oData;
-    QByteArray da=qstr.toLatin1();
-    oData=da.data();
-    if(ui->encryptionMethod->currentText() == "RC4"){
-        RC4 rc4(key);
-        rc4.KSA();
-        for ( size_t i = 0; i < strlen(oData); i++ )
-            oData[i] = rc4.encrypt_decrypt((unsigned char)oData[i]);
-        QString str1=QString(QLatin1String(oData));
-        ui->outputEdit->clear();
-        ui->outputEdit->setPlainText(str1);
-    }else if(ui->encryptionMethod->currentText() == "RSA"){
-//        RSA rsa;
-//        char *cstr;
-//        QByteArray ba=qstr.toLatin1();
-//        cstr=ba.data();
-//        rsa.TestRSA(cstr);
-//        unsigned __int64 * st=rsa.getencode();
-//        ui->outputEdit->clear();
-//        ui->outputEdit->setPlainText(mess);
-//        rsa(oData);
-    }else if(ui->encryptionMethod->currentText() == "Blowfish"){
-        blowfish.calcSubKey(pstr);
-        QByteArray BfEncyptedData = blowfish.encrypt(QByteArray(qstr.toUtf8()));
-        ui->outputEdit->clear();
-        ui->outputEdit->setPlainText(BfEncyptedData.toBase64());
-    }else if(ui->encryptionMethod->currentText() == "XOR"){
-        xorCipher.setKey(pstr);
-        QByteArray XorEncyptedData = xorCipher.encrypt(QByteArray(qstr.toUtf8()));
-        ui->outputEdit->clear();
-        ui->outputEdit->setPlainText(XorEncyptedData.toBase64());
-    }else if(ui->encryptionMethod->currentText() == "Playfair"){
-        string plainmes=qstr.toStdString();
-        playfair_en(plainmes,key);
-    }else if(ui->encryptionMethod->currentText() == "Casear"){
-        int keylength=pstr.toInt();
-        char* out=encrypt(oData,keylength);
-        ui->outputEdit->setPlainText(out);
+    int status = statusJudge(qstr,pstr);
+    if(status == 1){
+        ui->statusBar->showMessage("Please input plain text !");
+    }else if(status == 2){
+        ui->statusBar->showMessage("Please input key !");
+    }else if(status == 0 | status == 3){
+        string key=pstr.toStdString();
+        char * oData;
+        QByteArray da=qstr.toLatin1();
+        oData=da.data();
+        if(ui->encryptionMethod->currentText() == "RC4"){
+           rc4 rc(qstr.toStdString(),pstr.toStdString(),"");
+            QString input = textCleaner(qstr);
+            string input_str = input.toStdString();
+            QString input_qhex=QString::fromStdString(rc.string_to_hex(input_str));
+            for(int i=0;i<input_qhex.length();i++){
+                static const char* const lut="0123456789ABCDEF";
+                string input_test=input_qhex.toStdString();
+                char a = input_test[i];
+                const char* p = std::lower_bound(lut, lut + 16, a);
+            }
+            rc.cipher(input_str,key,false);
+            string output=rc.getEncoded();
+            QByteArray data=QByteArray::fromStdString(output);
+            ui->outputEdit->setPlainText(data.toHex());
+            ui->statusBar->showMessage("Data encrypted!");
+        }else if(ui->encryptionMethod->currentText() == "RSA"){
+    //        rsa(oData);
+        }else if(ui->encryptionMethod->currentText() == "Blowfish"){
+            blowfish.calcSubKey(pstr);
+            QByteArray BfEncyptedData = blowfish.encrypt(QByteArray(qstr.toUtf8()));
+            ui->outputEdit->clear();
+            ui->outputEdit->setPlainText(BfEncyptedData.toBase64());
+            ui->statusBar->showMessage("Data encrypted!");
+        }else if(ui->encryptionMethod->currentText() == "XOR"){
+            xorCipher.setKey(pstr);
+            QByteArray XorEncyptedData = xorCipher.encrypt(QByteArray(qstr.toUtf8()));
+            ui->outputEdit->clear();
+            ui->outputEdit->setPlainText(XorEncyptedData);
+            ui->statusBar->showMessage("Data encrypted!");
+        }else if(ui->encryptionMethod->currentText() == "Playfair"){
+            QStringList list=ui->inputEdit->toPlainText().split("\n");
+            ui->outputEdit->clear();
+            for(int i=0;i<list.size();i++){
+            QString mes=list.at(i);
+            string plainmes=mes.toStdString();
+            string output=encode(plainmes,key);
+            ui->outputEdit->appendPlainText(QString::fromStdString(output));
+            }
+            ui->statusBar->showMessage("Data encrypted!");
+        }else if(ui->encryptionMethod->currentText() == "Casear"){
+            int keylength=pstr.toInt();
+            char* out=encrypt(oData,keylength);
+            ui->outputEdit->setPlainText(out);
+            ui->statusBar->showMessage("Data encrypted!");
+        }else if(ui->encryptionMethod->currentText() == "AES"){
+            if(status == 3){
+                ui->statusBar->showMessage("Secret key is not more than 16 bytes.");
+            }else if(status == 0){
+                aes.InputData(qstr.toStdString(),pstr.toStdString());
+                ui->statusBar->clearMessage();
+                string AESEncryptData = aes.Encrypt();
+                ui->outputEdit->clear();
+                ui->outputEdit->setPlainText(QString::fromUtf8(AESEncryptData.data(),AESEncryptData.size()));
+                ui->statusBar->showMessage("Data encrypted!");
+            }
+
+        }
+        speedTest();
     }
-    ui->statusBar->showMessage("Data encrypted!");
 }
 
 void MainWindow::on_decryptBtn_clicked(){
+    time.start();
     QString qstr=ui->outputEdit->toPlainText();
     QString pstr=ui->keyEdit->text();
+    int status = statusJudge(qstr,pstr);
+    if(status == 1){
+        ui->statusBar->showMessage("Please input plain text !");
+    }else if(status == 2){
+        ui->statusBar->showMessage("Please input key !");
+    }else if(status == 0 | status == 3){
     qstr=qstr.simplified();
     string key=pstr.toStdString();
     char * oData;
     QByteArray da=qstr.toLatin1();
     oData=da.data();
-    if(ui->encryptionMethod->currentText() == "RC4"){
-            RC4 rc4(key);
-            rc4.KSA();
-            for ( size_t i = 0; i < strlen(oData); i++ )
-                oData[i] = rc4.encrypt_decrypt((unsigned char)oData[i]);
-            QString str1=QString(QLatin1String(oData));
-            ui->outputEdit->clear();
-            ui->outputEdit->setPlainText(str1);
+    if(ui->encryptionMethod->currentText() == "RC4"){       
+        QByteArray da=qstr.toLatin1();
+        QString in=QString::fromLatin1(da);
+        QString input=textCleaner(in);
+        rc4 rc("","","");
+        string input_str=input.toStdString();
+        input=QString::fromStdString(input_str);
+        rc.decipher(input_str,key);
+        string output=rc.getDecoded();
+        QByteArray data=QByteArray::fromStdString(output);
+        QString out=QString::fromLocal8Bit(data).toLower();
+        ui->outputEdit->setPlainText(out);
     }else if(ui->encryptionMethod->currentText() == "Blowfish"){
         blowfish.calcSubKey(pstr);
-        QByteArray BfEncyptedData = blowfish.decrypt(QByteArray(qstr.toUtf8()));
+        QByteArray BfDecyptedData = blowfish.decrypt(QByteArray::fromBase64(QByteArray(qstr.toUtf8())));
         ui->outputEdit->clear();
-        ui->outputEdit->setPlainText(BfEncyptedData.toBase64());
+        ui->outputEdit->setPlainText(BfDecyptedData);
     }else if(ui->encryptionMethod->currentText() == "XOR"){
         xorCipher.setKey(pstr);
-        QByteArray XorEncyptedData = xorCipher.decrypt(QByteArray(qstr.toUtf8()));
+        QString XorInputData = textCleaner(qstr);
+        QByteArray XorDecyptedData = xorCipher.decrypt(QByteArray(XorInputData.toUtf8()));
         ui->outputEdit->clear();
-        ui->outputEdit->setPlainText(XorEncyptedData.toBase64());
+        ui->outputEdit->setPlainText(XorDecyptedData);
     }else if(ui->encryptionMethod->currentText() == "Casear"){
         int keylength=pstr.toInt();
-        char* out=encrypt(oData,-keylength);
-        ui->outputEdit->setPlainText(out);
+        QStringList list=ui->outputEdit->toPlainText().split("\n");
+        ui->outputEdit->clear();
+        for(int i=0;i<list.size();i++){
+            QString mes=list.at(i);
+            char* data;
+            QByteArray dat=mes.toLatin1();
+            data=dat.data();
+            char* out=encrypt(data,-keylength);
+            ui->outputEdit->appendPlainText(out);
+        }
     }else if(ui->encryptionMethod->currentText() == "Playfair"){
-        string plainmes=qstr.toStdString();
-        playfair_de(plainmes,key);
+        QStringList list=ui->outputEdit->toPlainText().split("\n");
+        ui->outputEdit->clear();
+        for(int i=0;i<list.size();i++){
+            QString mes=list.at(i);
+            string plainmes=mes.toStdString();
+            string output=decode(plainmes,key);
+            ui->outputEdit->appendPlainText(QString::fromStdString(output));
+        }
+    }else if(ui->encryptionMethod->currentText() == "AES"){
+        if (status == 3) {
+            ui->statusBar->showMessage("Secret key is not more than 16 bytes.");
+        }else if(status == 0) {
+            aes.InputData(qstr.toStdString(),pstr.toStdString());
+            ui->statusBar->clearMessage();
+            string AESDecrypt = aes.Decrypt();
+            ui->outputEdit->clear();
+            ui->outputEdit->setPlainText(QString::fromUtf8(AESDecrypt.data(),AESDecrypt.size()));
+        }
     }
     ui->statusBar->showMessage("Data decrypted!");
+    speedTest();
+  }
 }

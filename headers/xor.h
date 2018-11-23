@@ -1,25 +1,19 @@
-#ifndef QXORCIPHER_H
-#define QXORCIPHER_H
-
+#ifndef XOR_H
+#define XOR_H
 
 #include <QByteArray>
 #include <QString>
 #include <QDebug>
 
-class QXORCipher
-{
+class XOR{
 public:
-    QXORCipher(QString key = "ABCD");
-
+    XOR(QString key = "ABCD");
     void setKey(QString key);
-    void setKey(QByteArray key);
-
     QByteArray encrypt(QByteArray data);
     QByteArray decrypt(QByteArray data);
-
 private:
     QByteArray key;
 
 };
 
-#endif // QXORCIPHER_H
+#endif // XOR_H
