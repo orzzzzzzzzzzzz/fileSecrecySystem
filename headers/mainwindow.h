@@ -35,6 +35,12 @@ private slots:
 
     void speedTest();
 
+    int statusJudge(QString qstr,QString pstr);
+    
+    QString textCleaner(const QString TextToClean);
+
+    QString removeAccents(const QString s);
+
 private:
     Ui::MainWindow *ui;
     QBlowfish blowfish;

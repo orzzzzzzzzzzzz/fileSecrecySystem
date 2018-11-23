@@ -11,10 +11,9 @@ using namespace std;
 class AES {
 public:
     // public functions
-    int InputForEncrypt(string inputtext, string inputkey);
-    int InputForDecrypt(string inputtext, string inputkey);
-    std::string Encrypt();
-    std::string Decrypt();
+    void InputData(string inputtext, string inputkey);
+    string Encrypt();
+    string Decrypt();
 
 private:
     // private members

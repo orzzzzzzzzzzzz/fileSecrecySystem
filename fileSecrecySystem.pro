@@ -33,7 +33,8 @@ SOURCES += \
     src/casear.cpp \
     src/xor.cpp \
     src/aes.cpp \
-    src/aes_lookup_tables.cpp
+    src/aes_lookup_tables.cpp \
+    src/common.cpp
 #    src/rsa.cpp
 #    src/des.cpp
 

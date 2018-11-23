@@ -4,78 +4,28 @@
 #include "aes_lookup_tables.cpp"
 
 
-int AES::InputForEncrypt(string textReceived, string inputkey)
+void AES::InputData(string textReceived, string inputkey)
 {
     int i;
-
-    if (inputkey.size() > 17) {
-        return 2;
+    for (i = inputkey.size(); i < 16; i++) {
+        inputkey += '\0';
     }
-    else if (inputkey.size() == 0) {
-        return 3;
+    for (i = textReceived.size() % 16; i < 16; i++) {
+        textReceived += '\0';
     }
-    else {
-        for (i = inputkey.size(); i < 16; i++) {
-            inputkey += '\0';
-        }
-    }
-
-    if (textReceived.size() == 0) {
-        return 1;
-    }
-    else {
-        // add \0's to fill last 16-byte block
-        for (i = textReceived.size() % 16; i < 16; i++) {
-            textReceived += '\0';
-        }
-        text = textReceived;
-    }
-
+    text = textReceived;
     memcpy(key, inputkey.c_str(), 16);
 
-
-
-    return 0;
 }
 
-
-int AES::InputForDecrypt(string textReceived, string inputkey)
+string AES::Encrypt()
 {
-    int i;
 
-    if (inputkey.size() > 16) {
-        return 2;
-    }
-    else if (inputkey.size() == 0) {
-        return 3;
-    }
-    else {
-        for (i = inputkey.size(); i < 16; i++) {
-            inputkey += '\0';
-        }
-    }
-
-    if (textReceived.size()%32 != 0 || textReceived.size() == 0) {
-        return 1;
-    }
-    else {
-        text = textReceived;
-    }
-
-    memcpy(key, inputkey.c_str(), 16);
-
-
-
-    return 0;
-}
-
-
-std::string AES::Encrypt()
-{
     int i;
     int j;
     string result;
-
+//    text = plainText;
+//    memcpy(key, inputKey.c_str(), 16);
     for (j = 0; j < (int)text.size()/16; j++) {
         // copy 16 bytes into state
         memcpy(state, text.c_str() + 16*j, 16);
@@ -102,13 +52,13 @@ std::string AES::Encrypt()
 }
 
 
-std::string AES::Decrypt()
+string AES::Decrypt()
 {
     unsigned int i;
     unsigned int j;
     string result;
-
-
+//    text = ciphertext;
+//    memcpy(key, inputKey.c_str(), 16);
     for (j = 0; j < text.size()/32; j++) {
         // copy to state
         for (i = 0; i < 16; i++) {
