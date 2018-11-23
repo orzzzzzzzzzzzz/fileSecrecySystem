@@ -34,9 +34,8 @@ SOURCES += \
     src/xor.cpp \
     src/aes.cpp \
     src/aes_lookup_tables.cpp \
-    src/common.cpp
-#    src/rsa.cpp
-#    src/des.cpp
+    src/common.cpp \
+    src/rsa.cpp
 
 
 
@@ -46,9 +45,8 @@ HEADERS += \
     headers/blowfish.h \
     headers/hexpi.h \
     headers/xor.h \
-    headers/aes.h
-#    headers/rsa.h
-#    headers/des.h
+    headers/aes.h \
+    headers/rsa.h
 
 
 FORMS += \

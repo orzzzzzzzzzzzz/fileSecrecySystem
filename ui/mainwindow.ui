@@ -14,7 +14,7 @@
    <string>fileSecrecySystem</string>
   </property>
   <property name="windowIcon">
-   <iconset>
+   <iconset resource="../icon.qrc">
     <normaloff>:/images/dialog-password.png</normaloff>:/images/dialog-password.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
@@ -63,12 +63,12 @@
        <widget class="QComboBox" name="encryptionMethod">
         <item>
          <property name="text">
-          <string>RSA</string>
+          <string>Casear</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>Casear</string>
+          <string>RSA</string>
          </property>
         </item>
         <item>
@@ -120,7 +120,7 @@
          <string>Encrypt</string>
         </property>
         <property name="icon">
-         <iconset>
+         <iconset resource="../icon.qrc">
           <normaloff>:/images/object-locked.png</normaloff>:/images/object-locked.png</iconset>
         </property>
        </widget>
@@ -131,7 +131,7 @@
          <string>Decrpyt</string>
         </property>
         <property name="icon">
-         <iconset>
+         <iconset resource="../icon.qrc">
           <normaloff>:/images/object-unlocked.png</normaloff>:/images/object-unlocked.png</iconset>
         </property>
        </widget>
@@ -189,6 +189,8 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="../icon.qrc"/>
+ </resources>
  <connections/>
 </ui>
